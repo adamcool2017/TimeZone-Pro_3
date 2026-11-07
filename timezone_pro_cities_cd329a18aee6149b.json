@@ -1,0 +1,74 @@
+[
+  {
+    "city": "Manama",
+    "country": "Bahrain",
+    "zone": "Asia/Bahrain",
+    "region": "",
+    "latitude": 26.22787,
+    "longitude": 50.58565
+  },
+  {
+    "city": "London",
+    "country": "United Kingdom",
+    "zone": "Europe/London",
+    "region": "England",
+    "latitude": 51.50853,
+    "longitude": -0.12574
+  },
+  {
+    "city": "New York",
+    "country": "United States",
+    "zone": "America/New_York",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Tokyo",
+    "country": "Japan",
+    "zone": "Asia/Tokyo",
+    "region": "",
+    "latitude": 35.6895,
+    "longitude": 139.69171
+  },
+  {
+    "city": "Edinburgh",
+    "country": "United Kingdom",
+    "zone": "Europe/London",
+    "region": "Scotland",
+    "latitude": 55.95206,
+    "longitude": -3.19648
+  },
+  {
+    "city": "Cairo",
+    "country": "Egypt",
+    "zone": "Africa/Cairo",
+    "region": "Cairo",
+    "latitude": 30.06263,
+    "longitude": 31.24967
+  },
+  {
+    "city": "Warsaw",
+    "country": "Poland",
+    "zone": "Europe/Warsaw",
+    "region": "Mazovia",
+    "latitude": 52.22977,
+    "longitude": 21.01178
+  },
+  {
+    "city": "Brooklyn",
+    "country": "United States",
+    "zone": "America/New_York",
+    "region": "New York",
+    "latitude": 40.6501,
+    "longitude": -73.94958
+  },
+  {
+    "city": "Pittsburg",
+    "country": "United States",
+    "zone": "America/Los_Angeles",
+    "region": "California",
+    "latitude": 38.02798,
+    "longitude": -121.88468
+  }
+]

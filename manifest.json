@@ -1,0 +1,17 @@
+{
+  "name": "TimeZone Pro",
+  "short_name": "TimeZone Pro",
+  "description": "A world clock and time zone tool.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e1420",
+  "theme_color": "#0e1420",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

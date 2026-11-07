@@ -1,0 +1,43 @@
+=== Environment ===
+Python 3.14.0, OpenSSL 3.0.18 30 Sep 2025
+Windows 11
+
+=== DNS ===
+  smtp.gmail.com -> 142.251.127.108, 2a00:1450:4001:c21::6d
+  smtp.office365.com -> 2603:1046:c0f:40e::2, 2603:1046:c0f:40f::2, 2603:1046:c0f:4::2
+  smtp-relay.brevo.com -> 172.246.243.66
+  www.google.com -> 142.251.150.119, 142.251.151.119, 142.251.152.119
+
+=== Gmail ports ===
+Plain connection to smtp.gmail.com:25
+  TCP smtp.gmail.com:25 FAILED after 20.0s: TimeoutError: timed out
+Direct TLS to smtp.gmail.com:465
+  TCP smtp.gmail.com:465 connected in 0.1s
+  TLS OK: TLSv1.3, TLS_AES_256_GCM_SHA384
+  certificate: issuer=Google Trust Services, subject=smtp.gmail.com
+  banner: b'220 smtp.gmail.com ESMTP 5b1f17b1804b1-4a94f5311bdsm51897615e9.5 - gsmtp\r\n'
+Plain connection to smtp.gmail.com:587
+  TCP smtp.gmail.com:587 connected in 0.1s
+  banner: b'220 smtp.gmail.com ESMTP 5b1f17b1804b1-4a9733d48b4sm49684315e9.0 - gsmtp\r\n'
+STARTTLS to smtp.gmail.com:587
+  connect reply: 220 b'smtp.gmail.com ESMTP 5b1f17b1804b1-4a978d57c36sm43391315e9.11 - gsmtp'
+  EHLO OK
+  FAILED: ValueError: check_hostname requires server_hostname
+
+=== Other mail providers ===
+Plain connection to smtp.office365.com:587
+  TCP smtp.office365.com:587 connected in 0.0s
+  banner: b'220 DO0P289CA0003.outlook.office365.com Microsoft ESMTP MAIL Service ready at Wed, 28 Oct 2026 12:44:44 +0000 [08DF326218654509]\r\n'
+Plain connection to smtp-relay.brevo.com:587
+  TCP smtp-relay.brevo.com:587 connected in 0.1s
+  banner: b'220 smtp-relay.brevo.com ESMTP Service Ready\r\n'
+Direct TLS to smtp.mail.yahoo.com:465
+  TCP smtp.mail.yahoo.com:465 connected in 0.1s
+  TLS OK: TLSv1.3, TLS_AES_128_GCM_SHA256
+  certificate: issuer=DigiCert Inc, subject=smtp.mail.yahoo.com
+  banner: b'220 smtp.mail.yahoo.com ESMTP ready\r\n'
+
+=== Normal HTTPS websites ===
+  https://www.google.com reachable, status 200
+  https://api.brevo.com reachable, status 404
+  https://api.resend.com reachable, status 403

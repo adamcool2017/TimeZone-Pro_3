@@ -1,0 +1,98 @@
+[
+  {
+    "city": "London",
+    "country": "United Kingdom",
+    "zone": "Europe/London",
+    "region": "England",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "New York",
+    "country": "United States",
+    "zone": "America/New_York",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Tokyo",
+    "country": "Japan",
+    "zone": "Asia/Tokyo",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Edinburgh",
+    "country": "United Kingdom",
+    "zone": "Europe/London",
+    "region": "Scotland",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Pompei",
+    "country": "Italy",
+    "zone": "Europe/Rome",
+    "region": "Campania",
+    "latitude": 40.74574,
+    "longitude": 14.49698
+  },
+  {
+    "city": "Adamstown",
+    "country": "Australia",
+    "zone": "Australia/Sydney",
+    "region": "New South Wales",
+    "latitude": -32.93824,
+    "longitude": 151.72541
+  },
+  {
+    "city": "Adams",
+    "country": "Philippines",
+    "zone": "Asia/Manila",
+    "region": "Ilocos",
+    "latitude": 18.46667,
+    "longitude": 120.9
+  },
+  {
+    "city": "Dublin",
+    "country": "Ireland",
+    "zone": "Europe/Dublin",
+    "region": "Leinster",
+    "latitude": 53.33306,
+    "longitude": -6.24889
+  },
+  {
+    "city": "Russange",
+    "country": "France",
+    "zone": "Europe/Paris",
+    "region": "Grand Est",
+    "latitude": 49.48283,
+    "longitude": 5.95204
+  },
+  {
+    "city": "Paris",
+    "country": "France",
+    "zone": "Europe/Paris",
+    "region": "\u00cele-de-France",
+    "latitude": 48.85341,
+    "longitude": 2.3488
+  },
+  {
+    "city": "Warsaw",
+    "country": "Poland",
+    "zone": "Europe/Warsaw",
+    "region": "Mazovia",
+    "latitude": 52.22977,
+    "longitude": 21.01178
+  },
+  {
+    "city": "Tok",
+    "country": "United States",
+    "zone": "America/Anchorage",
+    "region": "Alaska",
+    "latitude": 63.33667,
+    "longitude": -142.98556
+  }
+]

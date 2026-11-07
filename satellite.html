@@ -1,0 +1,231 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0e1420">
+<title>Satellite Explorer – TimeZone Pro</title>
+<meta name="description" content="Explore your saved TimeZone Pro cities on a satellite map.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{color-scheme:dark;--bg:#0e1420;--panel:#162033;--card:#1d2a42;--input:#121b2d;--border:#2b3a57;--accent:#63a4ff;--text:#f1f5ff;--muted:#9eacc5;--green:#65e6b2;--amber:#ffc46b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 "Segoe UI",system-ui,Arial,sans-serif}
+.wrap{max-width:1250px;margin:auto;padding:20px 16px 36px}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}.brand img{width:44px;height:44px;border-radius:11px}
+h1{font-size:23px;color:var(--accent);margin:0}.sub{font-size:11px;color:var(--muted);letter-spacing:1px;font-weight:700}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+button,input{font:inherit}
+button{border:0;border-radius:8px;padding:10px 14px;background:var(--accent);color:#081321;font-weight:700;cursor:pointer}
+button.alt{background:var(--border);color:var(--text)}
+button:hover{filter:brightness(1.1)}
+.panel{background:var(--panel);border:1px solid #202d43;border-radius:12px;padding:14px;margin-top:15px}
+.toolbar{display:grid;grid-template-columns:minmax(200px,1fr) auto auto;gap:9px;align-items:center}
+input{width:100%;min-width:0;background:var(--input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:11px 12px;outline:none}
+input:focus{border-color:var(--accent)}
+#map{height:min(68vh,720px);min-height:420px;border-radius:9px;background:#08111d;z-index:1}
+#results{position:absolute;left:0;right:0;top:calc(100% + 5px);z-index:1000;background:#101a2b;border:1px solid var(--border);border-radius:9px;max-height:290px;overflow:auto;display:none;box-shadow:0 10px 30px #0008}
+.search{position:relative}
+.result{padding:10px 12px;cursor:pointer;border-bottom:1px solid #26334a}.result:last-child{border:0}.result:hover,.result.sel{background:#253753}
+.result small{display:block;color:var(--muted);margin-top:2px}
+.status{font-size:13px;color:var(--muted);margin-top:9px;min-height:18px}
+.cities{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.city{background:var(--card);border:1px solid var(--border);padding:8px 10px;border-radius:8px;font-size:13px;cursor:pointer;color:var(--text)}
+.city:hover{border-color:var(--accent)}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#162033;color:#f1f5ff}
+.leaflet-popup-content{margin:11px 13px}.popup-time{font-size:20px;font-weight:800;color:#63a4ff}.popup-sub{font-size:12px;color:#9eacc5}
+.leaflet-control-attribution{font-size:10px!important}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:15px}
+@media(max-width:650px){.toolbar{grid-template-columns:1fr 1fr}.toolbar .search{grid-column:1/-1}#map{min-height:390px;height:62vh}.wrap{padding:14px 10px 28px}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><img src="logo.svg" alt="TimeZone Pro logo"><div><h1>TIMEZONE PRO</h1><div class="sub">SATELLITE EXPLORER</div></div></div>
+  <a href="index.html">← Back to World Clock</a>
+</header>
+
+<section class="panel">
+  <div class="toolbar">
+    <div class="search">
+      <input id="query" autocomplete="off" placeholder="Search for a city or country">
+      <div id="results"></div>
+    </div>
+    <button id="add" disabled>Add to my clocks</button>
+    <button id="fit" class="alt">Show my saved cities</button>
+  </div>
+  <div id="message" class="status">Loading city database… Search for a place, or select one of your saved clocks below.</div>
+  <div id="saved" class="cities"></div>
+</section>
+
+<section class="panel">
+  <div class="toolbar" style="grid-template-columns:1fr auto auto">
+    <strong>Explore the world</strong>
+    <button id="satellite">Satellite view</button>
+    <button id="dark" class="alt">Dark map</button>
+  </div>
+  <div id="map" style="margin-top:12px"></div>
+  <div class="status">Select a marker to see its local time. Map imagery is provided by Esri; the dark map is provided by CARTO.</div>
+</section>
+
+<footer>TimeZone Pro · Your saved clocks stay in this browser on this device.</footer>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="search.js"></script>
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const KEY = "tzp_cities";
+const DEFAULTS = [
+ {city:"Manama",country:"Bahrain",zone:"Asia/Bahrain",region:"",latitude:26.2154,longitude:50.5832},
+ {city:"London",country:"United Kingdom",zone:"Europe/London",region:"England",latitude:51.5072,longitude:-0.1276},
+ {city:"New York",country:"United States",zone:"America/New_York",region:"New York",latitude:40.7128,longitude:-74.006},
+ {city:"Tokyo",country:"Japan",zone:"Asia/Tokyo",region:"Tokyo",latitude:35.6895,longitude:139.6917},
+ {city:"Edinburgh",country:"United Kingdom",zone:"Europe/London",region:"Scotland",latitude:55.9533,longitude:-3.1883}
+];
+let cities = readCities();
+let selected = null;
+let results = [], active = 0, searchTimer = null, searchSequence = 0;
+let use24 = localStorage.getItem("tzp_24") !== "0";
+let currentLayer = "satellite";
+
+function readCities(){
+ try{
+  const data = JSON.parse(localStorage.getItem(KEY) || "null");
+  if(Array.isArray(data)) return data.filter(p=>p && typeof p.city==="string" && typeof p.zone==="string");
+ }catch(e){}
+ return DEFAULTS.map(p=>({...p}));
+}
+function saveCities(){try{localStorage.setItem(KEY,JSON.stringify(cities));}catch(e){$("#message").textContent="Your browser blocked local storage, so this change may not be saved.";}}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function placeName(p){return [p.city,p.region&&p.region!==p.city?p.region:"",p.country].filter(Boolean).join(", ");}
+function clockTime(zone){
+ try{return new Intl.DateTimeFormat(use24?"en-GB":"en-US",{timeZone:zone,hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:use24?"h23":"h12"}).format(new Date());}
+ catch(e){return "Local time unavailable";}
+}
+function validCoords(p){return Number.isFinite(Number(p.latitude))&&Number.isFinite(Number(p.longitude))&&p.latitude!==null&&p.longitude!==null;}
+function coordinates(p){
+ if(validCoords(p)) return [Number(p.latitude),Number(p.longitude)];
+ return null;
+}
+
+const map = L.map("map",{worldCopyJump:true}).setView([25,15],2);
+const satelliteLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{
+ maxZoom:19,attribution:'Tiles © <a href="https://www.esri.com/">Esri</a>'
+});
+const darkLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{
+ subdomains:"abcd",maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'
+});
+satelliteLayer.addTo(map);
+const markers = [];
+
+function popupHTML(p){
+ return `<b>${escapeHTML(placeName(p))}</b><div class="popup-time">${escapeHTML(clockTime(p.zone))}</div><div class="popup-sub">${escapeHTML(p.zone)}</div>`;
+}
+function refreshMarkers(){
+ markers.forEach(m=>map.removeLayer(m));markers.length=0;
+ const bounds=[];
+ cities.forEach(p=>{
+  const ll=coordinates(p);if(!ll)return;
+  const marker=L.marker(ll).addTo(map).bindPopup(popupHTML(p));
+  marker.on("popupopen",()=>{marker.setPopupContent(popupHTML(p));});
+  markers.push(marker);bounds.push(ll);
+ });
+ renderSaved();
+ if(bounds.length) $("#message").textContent=`Showing ${bounds.length} of ${cities.length} saved clock${cities.length===1?"":"s"} with map coordinates.`;
+ else $("#message").textContent="No saved cities have map coordinates yet. Search for a city to add one.";
+}
+function renderSaved(){
+ $("#saved").innerHTML="";
+ cities.forEach((p,i)=>{
+  const b=document.createElement("button");b.className="city";
+  b.textContent=placeName(p)+" · "+clockTime(p.zone);
+  b.title="Show "+placeName(p)+" on the map";
+  b.addEventListener("click",()=>{
+   const ll=coordinates(p);if(!ll){$("#message").textContent="No coordinates are available for this saved place.";return;}
+   map.flyTo(ll,Math.max(map.getZoom(),7),{duration:1.1});
+   const marker=markers.find(m=>{const q=m.getLatLng();return Math.abs(q.lat-ll[0])<0.00001&&Math.abs(q.lng-ll[1])<0.00001;});
+   if(marker)setTimeout(()=>marker.openPopup(),700);
+  });
+  $("#saved").appendChild(b);
+ });
+}
+function fitCities(){
+ const points=cities.map(coordinates).filter(Boolean);
+ if(points.length===1)map.flyTo(points[0],6);
+ else if(points.length>1)map.fitBounds(L.latLngBounds(points),{padding:[35,35],maxZoom:5});
+ else map.setView([20,0],2);
+}
+function choose(p){
+ selected=p;$("#query").value=placeName(p);$("#results").style.display="none";$("#add").disabled=false;
+ const ll=coordinates(p);
+ if(ll){map.flyTo(ll,Math.max(6,map.getZoom()),{duration:1});}
+}
+function showResults(){
+ const box=$("#results");
+ if(!results.length){box.innerHTML='<div class="result">No matches found. Try another spelling.</div>';box.style.display="block";return;}
+ box.innerHTML=results.map((p,i)=>`<div class="result ${i===active?"sel":""}" data-index="${i}">${escapeHTML(p.city)}<small>${escapeHTML([p.region,p.country,p.zone].filter(Boolean).join(" · "))}</small></div>`).join("");
+ box.style.display="block";
+}
+async function search(){
+ const q=$("#query").value.trim(), seq=++searchSequence;
+ selected=null;$("#add").disabled=true;
+ if(!q){$("#results").style.display="none";results=[];return;}
+ if(!window.TZSearch){$("#message").textContent="The search script is missing. Check that search.js is beside satellite.html.";return;}
+ try{
+  if(!TZSearch.isReady()) await TZSearch.whenReady();
+  if(seq!==searchSequence)return;
+  results=TZSearch.search(q,25);active=0;showResults();
+ }catch(e){
+  $("#results").style.display="none";
+  $("#message").textContent="Could not load the city database. Check that data/places.json exists and try refreshing.";
+ }
+}
+$("#query").addEventListener("input",()=>{clearTimeout(searchTimer);searchTimer=setTimeout(search,180);});
+$("#query").addEventListener("keydown",e=>{
+ if(e.key==="ArrowDown"&&results.length){active=Math.min(active+1,results.length-1);showResults();e.preventDefault();}
+ else if(e.key==="ArrowUp"&&results.length){active=Math.max(active-1,0);showResults();e.preventDefault();}
+ else if(e.key==="Enter"){if(results.length)choose(results[active]);else search();e.preventDefault();}
+ else if(e.key==="Escape")$("#results").style.display="none";
+});
+$("#results").addEventListener("mousedown",e=>{
+ const row=e.target.closest("[data-index]");if(row){choose(results[Number(row.dataset.index)]);e.preventDefault();}
+});
+document.addEventListener("click",e=>{if(!e.target.closest(".search"))$("#results").style.display="none";});
+$("#add").addEventListener("click",()=>{
+ if(!selected)return;
+ if(!cities.some(p=>p.city===selected.city&&p.zone===selected.zone&&p.country===selected.country)){
+  cities.push({...selected});saveCities();refreshMarkers();$("#message").textContent=placeName(selected)+" was added to your saved clocks on this device.";
+ }else $("#message").textContent="That city is already in your saved clocks.";
+});
+$("#fit").addEventListener("click",fitCities);
+$("#satellite").addEventListener("click",()=>{
+ if(currentLayer==="satellite")return;
+ map.removeLayer(darkLayer);satelliteLayer.addTo(map);currentLayer="satellite";
+});
+$("#dark").addEventListener("click",()=>{
+ if(currentLayer==="dark")return;
+ map.removeLayer(satelliteLayer);darkLayer.addTo(map);currentLayer="dark";
+});
+window.addEventListener("storage",e=>{
+ if(e.key===KEY){cities=readCities();refreshMarkers();}
+ if(e.key==="tzp_24"){use24=localStorage.getItem("tzp_24")!=="0";refreshMarkers();}
+});
+setInterval(()=>{renderSaved();markers.forEach((m,i)=>{if(cities[i])m.setPopupContent(popupHTML(cities[i]));});},1000);
+refreshMarkers();
+fitCities();
+if(window.TZSearch){
+ TZSearch.load("data/places.json").then(()=>{
+  $("#message").textContent=`City search ready · ${cities.length} saved clock${cities.length===1?"":"s"}.`;
+ }).catch(()=>{$("#message").textContent="City database could not load. Check the data/places.json file.";});
+}else{
+ $("#message").textContent="Search script not found. Make sure search.js is in the same folder as this page.";
+}
+</script>
+</body>
+</html>

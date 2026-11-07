@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TimeZone Pro – World Clock, Time Zone Converter &amp; Satellite Map</title>
+<meta name="description" content="TimeZone Pro is a free world clock and time zone converter. Track live time in 230,000+ cities, convert times between places and explore them on a satellite map.">
+<meta name="keywords" content="TimeZone Pro, world clock, time zone converter, time zones, current time in cities, satellite map, time difference">
+<meta name="author" content="Adam Sayed Ali">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="__SITE_URL__/">
+<!--GOOGLE_VERIFICATION-->
+<meta name="theme-color" content="#0e1420">
+<meta name="application-name" content="TimeZone Pro">
+<meta name="apple-mobile-web-app-title" content="TimeZone Pro">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TimeZone Pro">
+<meta property="og:title" content="TimeZone Pro – World Clock, Time Zone Converter &amp; Satellite Map">
+<meta property="og:description" content="Track live time in any city, convert times between time zones and explore places on a satellite map. Free to use.">
+<meta property="og:url" content="__SITE_URL__/">
+<meta property="og:image" content="__SITE_URL__/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TimeZone Pro – World Clock &amp; Time Zone Converter">
+<meta name="twitter:description" content="Track live time in any city, convert times between time zones and explore places on a satellite map.">
+<meta name="twitter:image" content="__SITE_URL__/og-image.png">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"__SITE_URL__/#website","name":"TimeZone Pro","alternateName":["TimeZonePro","Time Zone Pro"],"url":"__SITE_URL__/","inLanguage":"en"},
+{"@type":"WebApplication","@id":"__SITE_URL__/#app","name":"TimeZone Pro","url":"__SITE_URL__/","description":"A free world clock, time zone converter and satellite map explorer covering more than 230,000 cities and places.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","image":"__SITE_URL__/og-image.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Adam Sayed Ali"},"isPartOf":{"@id":"__SITE_URL__/#website"}}
+]}
+</script>
+<style>
+:root{color-scheme:dark;--bg:#0e1420;--panel:#162033;--card:#1d2a42;--input:#121b2d;--border:#2b3a57;--accent:#63a4ff;--text:#f1f5ff;--muted:#9eacc5;--green:#65e6b2;--amber:#ffc46b;--night:#8fa8ff;--danger:#ff8c8c}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.4 "Segoe UI",system-ui,Arial,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 18px 50px}
+h1{margin:0;color:var(--accent);font-size:26px;letter-spacing:.5px}
+.brand{display:flex;gap:12px;align-items:center}
+.brand img{width:46px;height:46px;border-radius:12px}
+.sub{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:1px;margin-top:2px}
+.panel{background:var(--panel);border-radius:12px;padding:18px;margin-top:16px}
+input{width:100%;background:var(--input);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:16px;outline:none;font-family:inherit}
+input:focus{border-color:var(--accent)}
+input.mono{font-family:Consolas,"Courier New",monospace}
+button{background:var(--accent);color:var(--bg);border:0;border-radius:8px;padding:10px 16px;font-weight:700;font-size:14px;cursor:pointer}
+button:hover{filter:brightness(1.1)}
+button.alt{background:var(--border);color:var(--text)}
+button.green{background:var(--green)}
+button.amber{background:var(--amber)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.status{font-size:13px;margin-top:10px;min-height:18px;color:var(--muted)}
+.ok{color:var(--green)}.bad{color:var(--danger)}.warn{color:var(--amber)}
+.search{position:relative}
+.drop{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--card);border:1px solid var(--border);border-radius:8px;max-height:320px;overflow:auto;z-index:20;display:none}
+.drop div{padding:9px 12px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}
+.drop div.sel{background:var(--accent);color:var(--bg)}
+.drop small{opacity:.8;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:15px 16px}
+.card .top{display:flex;justify-content:space-between;align-items:center}
+.card .name{color:var(--accent);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.card .x{background:none;color:var(--muted);padding:0 4px;font-size:15px}
+.card .x:hover{color:var(--danger)}
+.card .area{color:var(--muted);font-size:12px;margin:2px 0 6px}
+.card .t{font:700 28px Consolas,"Courier New",monospace}
+.card .d{color:var(--green);font-size:13px;margin:2px 0 8px}
+.card .foot{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.card .p{font-weight:700}
+.empty{color:var(--muted);text-align:center;padding:30px}
+.mapbox{border:1px solid var(--border)}
+.mapbox canvas{display:block;width:100%;background:#07101d;border:1px solid #20304a;border-radius:6px}
+.sec{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sec b{font-size:17px}
+.tag{color:var(--green);font-size:11px;font-weight:700;letter-spacing:1px}
+.conv{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.conv label{font-size:12px;color:var(--muted);display:block;margin-bottom:4px}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.box .h{color:var(--muted);font-size:13px}
+.box .t{font:700 30px Consolas,"Courier New",monospace}
+.box .d{color:var(--green);font-size:14px}
+.box .o{color:var(--muted);font-size:13px}
+.about{margin-top:30px;color:var(--muted);line-height:1.6}
+.about h2{color:var(--text);font-size:22px;margin:0 0 10px}
+.about h3{color:var(--accent);font-size:16px;margin:22px 0 6px}
+.about p{margin:0 0 10px}
+.about ul{margin:6px 0 0;padding-left:20px}
+.about li{margin:4px 0}
+footer{color:var(--muted);font-size:12px;margin-top:26px;text-align:center}
+footer a{color:var(--accent)}
+footer div{margin-top:4px}
+.credits{display:flex;gap:6px 22px;justify-content:center;flex-wrap:wrap;color:var(--text);font-weight:700;font-size:14px;margin-bottom:8px}
+.hide{display:none!important}
+@media(max-width:620px){.conv,.res{grid-template-columns:1fr}}
+@media(max-width:480px){.wrap{padding:16px 12px 40px}h1{font-size:22px}.brand img{width:40px;height:40px}.card .t{font-size:25px}.box .t{font-size:26px}button{padding:11px 14px}.head .row{width:100%}.head .row button{flex:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="brand">
+      <img src="logo.svg" alt="TimeZone Pro logo">
+      <div>
+        <h1>TIMEZONE PRO</h1>
+        <div class="sub">YOUR WORLD, ONE CLOCK AT A TIME</div>
+      </div>
+    </div>
+    <div class="row">
+      <button id="share" class="green">Share my clocks</button>
+      <button id="fmt" class="alt"></button>
+    </div>
+  </div>
+  <div id="live" class="status ok" style="font-size:14px"></div>
+  <div id="info" class="sub" style="font-weight:400;letter-spacing:0">Loading the city database…</div>
+
+  <div class="panel">
+    <b style="font-size:17px">Add a place</b>
+    <div class="status" style="margin:4px 0 10px">Search cities or countries. Try "Cities in France", "Find Tokyo in Japan", "London time", or "Springfield Illinois". Use the arrow keys and press Enter to add the selected match. Your clocks are saved on this device.</div>
+    <div class="search">
+      <input id="q" autocomplete="off" placeholder="Search for a city or country">
+      <div id="results" class="drop"></div>
+    </div>
+    <div id="note" class="status"></div>
+  </div>
+
+  <h2 style="margin:22px 0 0;font-size:20px">World clocks</h2>
+  <div id="grid" class="grid"></div>
+  <div id="empty" class="empty hide">No clocks yet. Search for a city above to add your first one.</div>
+
+  <div class="panel mapbox">
+    <div class="sec">
+      <b>WORLD MAP</b>
+      <div class="row"><span class="tag">LIVE CITY SIGNALS</span><button id="sat">Open Satellite Explorer</button></div>
+    </div>
+    <div id="mapwrap"><canvas id="map"></canvas></div>
+    <div class="status" style="margin-top:7px;font-size:12px">Markers represent your saved clocks. Add or remove a city to update this map.</div>
+  </div>
+
+  <div class="panel">
+    <b style="font-size:17px">Time zone converter</b>
+    <div class="conv" style="margin-top:10px">
+      <div><label for="cdate">Date (YYYY-MM-DD)</label><input id="cdate" class="mono" type="date"></div>
+      <div><label for="ctime">Time (HH:MM)</label><input id="ctime" class="mono" type="time"></div>
+      <div><label for="cfrom">From</label><div class="search"><input id="cfrom" autocomplete="off"><div id="rfrom" class="drop"></div></div></div>
+      <div><label for="cto">To</label><div class="search"><input id="cto" autocomplete="off"><div id="rto" class="drop"></div></div></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button id="convert">Convert time</button>
+      <button id="swap" class="amber">Swap places</button>
+      <button id="now" class="green">Use current time</button>
+    </div>
+    <div id="cmsg" class="status">Choose two places and press Convert.</div>
+    <div id="cres" class="res hide">
+      <div class="box" id="boxA"><div class="h"></div><div class="t"></div><div class="d"></div><div class="o"></div></div>
+      <div class="box" id="boxB"><div class="h"></div><div class="t"></div><div class="d"></div><div class="o"></div></div>
+    </div>
+  </div>
+
+  <section class="about">
+    <h2>World clock, time zone converter and satellite map</h2>
+    <p>TimeZone Pro is a free online world clock. See the live local time in any city or country, compare it with your own time, and keep all your favourite places on one page that works on your phone, tablet or computer.</p>
+    <h3>What you can do with TimeZone Pro</h3>
+    <ul>
+      <li>Add as many world clocks as you like from a database of more than 230,000 cities, towns and places.</li>
+      <li>See the time difference, the date and whether it is day or night in every place.</li>
+      <li>Convert any date and time from one time zone to another, including daylight saving changes.</li>
+      <li>Find your clocks on a live world map and fly to them on a satellite map.</li>
+      <li>Share your clocks with family and friends using one link.</li>
+    </ul>
+    <h3>Free and easy to use</h3>
+    <p>Search for a city or a whole country, for example Manama, London, Tokyo or "cities in France", and press Enter to add it. There is nothing to install and no account to create. Your clocks are saved on your own device.</p>
+    <noscript><p>TimeZone Pro needs JavaScript to show live clocks. Please turn JavaScript on in your browser.</p></noscript>
+  </section>
+
+  <footer>
+    <div class="credits"><span>Made with JavaScript and Python</span><span>Made by Adam Sayed Ali</span></div>
+    <div>Place data: <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a> (CC BY 4.0) · Country shapes: Natural Earth via datasets/geo-countries · Satellite imagery: Esri</div>
+    <div>&copy; <span id="year">2026</span> TimeZone Pro</div>
+  </footer>
+</div>
+
+<script src="search.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+$("#year").textContent = new Date().getFullYear();
+const DEFAULTS = [
+  {city:"Manama",country:"Bahrain",zone:"Asia/Bahrain",region:"",latitude:26.2154,longitude:50.5832},
+  {city:"London",country:"United Kingdom",zone:"Europe/London",region:"England",latitude:51.5072,longitude:-0.1276},
+  {city:"New York",country:"United States",zone:"America/New_York",region:"New York",latitude:40.7128,longitude:-74.006},
+  {city:"Tokyo",country:"Japan",zone:"Asia/Tokyo",region:"Tokyo",latitude:35.6895,longitude:139.6917},
+  {city:"Edinburgh",country:"United Kingdom",zone:"Europe/London",region:"Scotland",latitude:55.9533,longitude:-3.1883}
+];
+const ZONE_FALLBACKS = {Africa:[20,0],America:[-95,25],Antarctica:[0,-75],Asia:[100,30],Atlantic:[-25,35],Australia:[135,-25],Europe:[15,50],Indian:[70,-20],Pacific:[-150,0]};
+
+function stored(key){try{return localStorage.getItem(key)}catch(e){return null}}
+function store(key,val){try{localStorage.setItem(key,val)}catch(e){}}
+function loadSaved(){
+  try{
+    const d = JSON.parse(stored("tzp_cities")||"null");
+    return Array.isArray(d) ? d.filter(c=>c&&typeof c.city==="string"&&typeof c.zone==="string") : null;
+  }catch(e){return null}
+}
+function persist(){store("tzp_cities",JSON.stringify(cities))}
+
+let use24 = stored("tzp_24") !== "0";
+let cities = loadSaved() || DEFAULTS.map(c=>({...c}));
+let lastConv = null, ticker = null, resizeTimer = null;
+let geo = null, geoState = "idle", baseImg = null, baseKey = "";
+const cache = {};
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function label(p){return [p.city,p.region&&p.region!==p.city?p.region:"",p.country].filter(Boolean).join(", ")}
+function area(p){const a=[p.region&&p.region!==p.city?p.region:"",p.country].filter(Boolean).join(", ");return a?a+"  ·  "+p.zone:p.zone}
+function same(a,b){return a.city===b.city&&a.zone===b.zone&&a.country===b.country}
+function setStatus(el,text,cls){el.textContent=text;el.className="status "+(cls||"")}
+function pad(n){return String(n).padStart(2,"0")}
+
+function fmt(kind, zone){
+  const key = kind+"|"+zone+"|"+use24;
+  if(cache[key]) return cache[key];
+  const hc = use24?"h23":"h12";
+  const opts = {
+    time:{hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:hc},
+    clk:{hour:"2-digit",minute:"2-digit",hourCycle:hc},
+    date:{weekday:"long",day:"numeric",month:"long",year:"numeric"},
+    hour:{hour:"numeric",hourCycle:"h23"},
+    off:{timeZoneName:"longOffset",hour:"numeric"},
+    parts:{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}
+  }[kind];
+  const locale = (kind==="time"||kind==="clk")&&!use24 ? "en-US" : kind==="parts" ? "en-US" : "en-GB";
+  return cache[key] = new Intl.DateTimeFormat(locale,{timeZone:zone,...opts});
+}
+
+function offsetMinutes(zone, now){
+  const part = fmt("off",zone).formatToParts(now).find(p=>p.type==="timeZoneName");
+  const m = part && /GMT([+-])(\d{1,2})(?::(\d{2}))?/.exec(part.value);
+  if(!m) return 0;
+  const v = Number(m[2])*60 + Number(m[3]||0);
+  return m[1]==="-" ? -v : v;
+}
+
+function zoneOffsetMs(zone, ms){
+  const p = {};
+  fmt("parts",zone).formatToParts(new Date(ms)).forEach(x=>{p[x.type]=x.value});
+  return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour%24,+p.minute,+p.second) - Math.floor(ms/1000)*1000;
+}
+
+function utcLabel(mins){
+  const sign = mins>=0?"+":"-", a = Math.abs(mins);
+  return `UTC${sign}${pad(Math.floor(a/60))}:${pad(a%60)}`;
+}
+
+function diffText(mins){
+  if(mins===0) return "Same time as you";
+  const h = Math.floor(Math.abs(mins)/60), m = Math.abs(mins)%60;
+  return [h?h+"h":"",m?m+"m":""].filter(Boolean).join(" ")+(mins>0?" ahead of you":" behind you");
+}
+
+function makePicker(input, box, onPick, clear){
+  const st = {place:null,results:[],sel:0,seq:0,timer:null};
+  const hide = ()=>{box.style.display="none";st.results=[]};
+  const note = text=>{box.innerHTML='<div style="cursor:default">'+text+'</div>';box.style.display="block"};
+  const show = ()=>{
+    if(!st.results.length){note("No matches. Try a nearby larger city or a country name.");return}
+    const now = new Date();
+    box.innerHTML = st.results.map((p,i)=>{
+      let c = "";
+      try{c = new Intl.DateTimeFormat("en-GB",{timeZone:p.zone,hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(now)}catch(e){}
+      return `<div data-i="${i}" class="${i===st.sel?"sel":""}"><span>${esc(label(p))}</span><small>${c}</small></div>`;
+    }).join("");
+    box.style.display = "block";
+    const s = box.querySelector(".sel"); if(s) s.scrollIntoView({block:"nearest"});
+  };
+  const run = async ()=>{
+    const q = input.value.trim();
+    if(!q){hide();return}
+    const seq = ++st.seq;
+    if(!TZSearch.isReady()){
+      note("Loading the city database…");
+      try{await TZSearch.whenReady()}catch(e){note("The city database could not be loaded. Check your connection and try again.");TZSearch.load("data/places.json").catch(()=>{});return}
+      if(seq!==st.seq) return;
+    }
+    st.results = TZSearch.search(q,30); st.sel = 0; show();
+  };
+  const choose = p=>{
+    hide(); st.place = p;
+    input.value = clear ? "" : label(p);
+    if(onPick) onPick(p);
+  };
+  input.addEventListener("input",()=>{st.place=null;clearTimeout(st.timer);st.timer=setTimeout(run,180)});
+  input.addEventListener("keydown",e=>{
+    if(e.key==="ArrowDown"&&st.results.length){st.sel=Math.min(st.sel+1,st.results.length-1);show();e.preventDefault()}
+    else if(e.key==="ArrowUp"&&st.results.length){st.sel=Math.max(st.sel-1,0);show();e.preventDefault()}
+    else if(e.key==="PageDown"&&st.results.length){st.sel=Math.min(st.sel+8,st.results.length-1);show();e.preventDefault()}
+    else if(e.key==="PageUp"&&st.results.length){st.sel=Math.max(st.sel-8,0);show();e.preventDefault()}
+    else if(e.key==="Enter"&&st.results.length){choose(st.results[st.sel]);e.preventDefault()}
+    else if(e.key==="Escape"){hide()}
+  });
+  box.addEventListener("mousedown",e=>{
+    const row = e.target.closest("[data-i]");
+    if(row){choose(st.results[Number(row.dataset.i)]);e.preventDefault()}
+  });
+  document.addEventListener("click",e=>{if(!input.parentElement.contains(e.target))hide()});
+  return {
+    set(p){st.place=p;input.value=label(p);hide()},
+    async get(){
+      if(st.place) return st.place;
+      const q = input.value.trim();
+      if(!q) return null;
+      try{await TZSearch.whenReady()}catch(e){return null}
+      const p = TZSearch.search(q,1)[0]||null;
+      if(p){st.place=p;input.value=label(p)}
+      return p;
+    }
+  };
+}
+
+function render(){
+  $("#grid").innerHTML = cities.map((p,i)=>
+    `<div class="card" data-zone="${esc(p.zone)}">
+      <div class="top"><span class="name">${esc(p.city)}</span><button class="x" data-i="${i}" title="Remove" aria-label="Remove ${esc(p.city)}">✕</button></div>
+      <div class="area">${esc(area(p))}</div>
+      <div class="t">--:--:--</div><div class="d"></div>
+      <div class="foot"><span class="o"></span><span class="p"></span></div>
+    </div>`).join("");
+  $("#empty").classList.toggle("hide", cities.length>0);
+  tick();
+}
+
+function tick(){
+  const now = new Date();
+  const local = -now.getTimezoneOffset();
+  document.querySelectorAll(".card").forEach(card=>{
+    const zone = card.dataset.zone;
+    try{
+      card.querySelector(".t").textContent = fmt("time",zone).format(now);
+      card.querySelector(".d").textContent = fmt("date",zone).format(now);
+      card.querySelector(".o").textContent = diffText(offsetMinutes(zone,now)-local);
+      const hour = Number(fmt("hour",zone).format(now));
+      const p = card.querySelector(".p");
+      const day = hour>=6&&hour<20;
+      p.textContent = day ? "●  Day" : "●  Night";
+      p.style.color = day ? "var(--amber)" : "var(--night)";
+    }catch(e){}
+  });
+  const t = new Intl.DateTimeFormat(use24?"en-GB":"en-US",{hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:use24?"h23":"h12"}).format(now);
+  $("#live").textContent = `LIVE  •  ${cities.length} ${cities.length===1?"PLACE":"PLACES"}  •  YOUR TIME ${t}`;
+  drawMap();
+}
+
+function coordFor(c){
+  if(typeof c.latitude==="number"&&typeof c.longitude==="number") return [c.latitude,c.longitude];
+  const f = ZONE_FALLBACKS[(c.zone||"").split("/")[0]];
+  return f ? [f[1],f[0]] : null;
+}
+
+async function loadGeo(){
+  if(geoState!=="idle") return;
+  geoState = "loading";
+  try{
+    const r = await fetch("data/countries.json");
+    if(!r.ok) throw new Error("map");
+    geo = await r.json();
+    geoState = "ready";
+  }catch(e){geoState = "failed"}
+  drawMap(true);
+}
+
+function renderBase(W,H,dpr){
+  const b = document.createElement("canvas");
+  b.width = Math.round(W*dpr); b.height = Math.round(H*dpr);
+  const g = b.getContext("2d");
+  g.scale(dpr,dpr);
+  g.fillStyle = "#07101d"; g.fillRect(0,0,W,H);
+  const L=24, T=24, mw=W-48, mh=H-48;
+  const px = (lon,lat)=>[L+(lon+180)/360*mw, T+(85-Math.max(-60,Math.min(85,lat)))/145*mh];
+  g.strokeStyle = "#13243a"; g.lineWidth = 1;
+  for(let lon=-150;lon<=180;lon+=30){const x=px(lon,0)[0];g.beginPath();g.moveTo(x,T);g.lineTo(x,T+mh);g.stroke()}
+  for(const lat of [-45,-15,15,45,75]){const y=px(0,lat)[1];g.beginPath();g.moveTo(L,y);g.lineTo(L+mw,y);g.stroke()}
+  if(geoState!=="ready"){
+    g.textAlign = "center"; g.fillStyle = "#f1f5ff"; g.font = "bold 16px Segoe UI,Arial";
+    g.fillText(geoState==="failed"?"World map could not be loaded":"Loading the world map…",W/2,H/2-8);
+    g.fillStyle = "#9eacc5"; g.font = "12px Segoe UI,Arial";
+    g.fillText(geoState==="failed"?"Check your connection and refresh the page.":"This only takes a moment.",W/2,H/2+16);
+    return b;
+  }
+  g.fillStyle = "#203a52"; g.strokeStyle = "#4b6d88"; g.lineWidth = 1;
+  for(const f of geo){
+    for(const ring of f.p){
+      g.beginPath();
+      ring.forEach((pt,i)=>{const [x,y]=px(pt[0],pt[1]);i?g.lineTo(x,y):g.moveTo(x,y)});
+      g.closePath(); g.fill(); g.stroke();
+    }
+  }
+  const placed = [];
+  g.textAlign = "center"; g.textBaseline = "middle"; g.lineJoin = "round";
+  for(const f of geo){
+    if(f.d<300||f.c[1]<-55||f.c[1]>78) continue;
+    const [x,y] = px(f.c[0],f.c[1]);
+    let short = f.n.replace("Republic of ","").replace("Kingdom of ","");
+    if(short.length>15) short = short.slice(0,14)+"…";
+    if(placed.some(o=>Math.abs(x-o[0])<140&&Math.abs(y-o[1])<50)) continue;
+    placed.push([x,y]);
+    g.font = (short.length<=10?"11px":"9px")+" Arial,sans-serif";
+    g.lineWidth = 3; g.strokeStyle = "#203a52"; g.strokeText(short,x,y);
+    g.fillStyle = "#b8c8d9"; g.fillText(short,x,y);
+  }
+  return b;
+}
+
+function drawMap(force){
+  const cv = $("#map");
+  if(!cv||!cv.parentElement.clientWidth) return;
+  const W = Math.max(cv.parentElement.clientWidth,320);
+  const H = Math.max(Math.round((W-48)*145/360)+48,200);
+  const dpr = window.devicePixelRatio||1;
+  if(cv.width!==Math.round(W*dpr)||cv.height!==Math.round(H*dpr)){
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); cv.style.height = H+"px";
+  }
+  const key = [W,H,dpr,geoState].join("x");
+  if(force||key!==baseKey||!baseImg){baseImg = renderBase(W,H,dpr);baseKey = key}
+  const g = cv.getContext("2d");
+  g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,W,H);
+  g.drawImage(baseImg,0,0,W,H);
+  if(geoState!=="ready") return;
+  const L=24, T=24, mw=W-48, mh=H-48, right=W-24, bottom=H-24, now = new Date();
+  const pts = [];
+  for(const c of cities){
+    const co = coordFor(c);
+    if(!co) continue;
+    let clock;
+    try{clock = fmt("clk",c.zone).format(now)}catch(e){continue}
+    const lat = Math.max(-60,Math.min(85,co[0]));
+    const x = L+(co[1]+180)/360*mw, y = T+(85-lat)/145*mh;
+    g.fillStyle = "#102d40"; g.beginPath(); g.arc(x,y,13,0,7); g.fill();
+    g.fillStyle = "#174d65"; g.strokeStyle = "#4fe0d0"; g.lineWidth = 1; g.beginPath(); g.arc(x,y,8,0,7); g.fill(); g.stroke();
+    g.fillStyle = "#a5fff2"; g.beginPath(); g.arc(x,y,3,0,7); g.fill();
+    pts.push({x,y,name:c.city.length<=20?c.city:c.city.slice(0,19)+"…",clock});
+  }
+  const shown = pts.slice(0,120);
+  g.font = "bold 12px Consolas,'Courier New',monospace"; g.textAlign = "left"; g.textBaseline = "top";
+  for(const p of shown){
+    const lw = Math.max(64,p.name.length*7+14), lh = 36;
+    const cands = [[p.x+18,p.y-22],[p.x-lw-18,p.y-22],[p.x+18,p.y+12],[p.x-lw-18,p.y+12],[p.x-lw/2,p.y-lh-20],[p.x-lw/2,p.y+20],[p.x+26,p.y-lh/2],[p.x-lw-26,p.y-lh/2]];
+    let best = null, bestScore = Infinity;
+    for(const [rx,ry] of cands){
+      const lx = Math.min(Math.max(L,rx),right-lw), ly = Math.min(Math.max(T,ry),bottom-lh);
+      let overlap = 0;
+      for(const o of shown) if((o.x!==p.x||o.y!==p.y)&&lx-10<o.x&&o.x<lx+lw+10&&ly-10<o.y&&o.y<ly+lh+10) overlap++;
+      const score = overlap*1000+Math.abs(lx+lw/2-p.x)+Math.abs(ly+lh/2-p.y);
+      if(score<bestScore){best=[lx,ly];bestScore=score}
+    }
+    const [lx,ly] = best;
+    g.fillStyle = "#101d2e"; g.strokeStyle = "#31506c"; g.lineWidth = 1;
+    g.fillRect(lx,ly,lw,lh); g.strokeRect(lx+.5,ly+.5,lw-1,lh-1);
+    g.fillStyle = "#63e6d0";
+    g.fillText(p.name,lx+7,ly+6); g.fillText(p.clock,lx+7,ly+21);
+  }
+}
+
+function addCity(p){
+  if(cities.some(c=>same(c,p))){setStatus($("#note"),`${label(p)} is already on your clocks.`,"warn");return}
+  cities.push({...p});
+  persist();
+  render();
+  setStatus($("#note"),`Added ${label(p)}.`,"ok");
+  $("#q").focus();
+}
+
+const addPicker = makePicker($("#q"),$("#results"),addCity,true);
+const fromPicker = makePicker($("#cfrom"),$("#rfrom"),null,false);
+const toPicker = makePicker($("#cto"),$("#rto"),null,false);
+fromPicker.set(DEFAULTS[0]);
+toPicker.set(DEFAULTS[1]);
+
+function fillBox(box, place, utc){
+  box.querySelector(".h").textContent = label(place);
+  box.querySelector(".t").textContent = fmt("clk",place.zone).format(utc);
+  box.querySelector(".d").textContent = fmt("date",place.zone).format(utc);
+  box.querySelector(".o").textContent = utcLabel(Math.round(zoneOffsetMs(place.zone,utc)/60000));
+}
+
+function showConv(){
+  if(!lastConv) return;
+  fillBox($("#boxA"),lastConv.a,lastConv.utc);
+  fillBox($("#boxB"),lastConv.b,lastConv.utc);
+  $("#cres").classList.remove("hide");
+}
+
+function convErr(text){lastConv=null;$("#cres").classList.add("hide");setStatus($("#cmsg"),text,"bad")}
+
+async function convert(){
+  const a = await fromPicker.get(), b = await toPicker.get();
+  if(!a){convErr("Choose a place to convert from.");return}
+  if(!b){convErr("Choose a place to convert to.");return}
+  const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec($("#cdate").value.trim());
+  const t = /^(\d{2}):(\d{2})$/.exec($("#ctime").value.trim());
+  if(!d||!t){convErr("Use YYYY-MM-DD for the date and HH:MM for the time.");return}
+  const guess = Date.UTC(+d[1],+d[2]-1,+d[3],+t[1],+t[2]);
+  let utc = guess - zoneOffsetMs(a.zone,guess);
+  utc = guess - zoneOffsetMs(a.zone,utc);
+  lastConv = {a,b,utc};
+  setStatus($("#cmsg"),"","");
+  showConv();
+}
+
+async function fillNow(){
+  const place = (await fromPicker.get()) || DEFAULTS[0];
+  const p = {};
+  fmt("parts",place.zone).formatToParts(new Date()).forEach(x=>{p[x.type]=x.value});
+  $("#cdate").value = `${p.year}-${p.month}-${p.day}`;
+  $("#ctime").value = `${pad(+p.hour%24)}:${p.minute}`;
+}
+
+function enc(obj){
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  let s = "";
+  bytes.forEach(x=>{s+=String.fromCharCode(x)});
+  return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function dec(str){
+  const s = atob(str.replace(/-/g,"+").replace(/_/g,"/"));
+  return JSON.parse(new TextDecoder().decode(Uint8Array.from(s,c=>c.charCodeAt(0))));
+}
+
+function importShared(){
+  const m = /^#c=([A-Za-z0-9_-]+)$/.exec(location.hash);
+  if(!m) return;
+  let list;
+  try{list = dec(m[1])}catch(e){return}
+  history.replaceState(null,"",location.pathname+location.search);
+  if(!Array.isArray(list)) return;
+  const incoming = [];
+  for(const it of list.slice(0,150)){
+    if(!Array.isArray(it)||typeof it[0]!=="string"||typeof it[2]!=="string") continue;
+    try{new Intl.DateTimeFormat("en",{timeZone:it[2]})}catch(e){continue}
+    incoming.push({city:it[0].slice(0,120),country:String(it[1]||"").slice(0,120),zone:it[2],region:String(it[3]||"").slice(0,120),latitude:typeof it[4]==="number"?it[4]:null,longitude:typeof it[5]==="number"?it[5]:null});
+  }
+  const fresh = incoming.filter(p=>!cities.some(c=>same(c,p)));
+  if(!fresh.length) return;
+  if(confirm(`Add ${fresh.length} shared clock${fresh.length===1?"":"s"} to your clocks?`)){
+    cities.push(...fresh);
+    persist();
+    render();
+  }
+}
+
+$("#share").onclick = async ()=>{
+  const list = cities.map(c=>[c.city,c.country,c.zone,c.region,typeof c.latitude==="number"?c.latitude:null,typeof c.longitude==="number"?c.longitude:null]);
+  const link = location.origin+location.pathname+"#c="+enc(list);
+  try{
+    await navigator.clipboard.writeText(link);
+    setStatus($("#note"),"Link copied. Send it to anyone and they can add your clocks.","ok");
+  }catch(e){window.prompt("Copy this link:",link)}
+};
+$("#convert").onclick = convert;
+$("#now").onclick = fillNow;
+$("#swap").onclick = async ()=>{
+  const a = await fromPicker.get(), b = await toPicker.get();
+  if(a&&b){fromPicker.set(b);toPicker.set(a);if(lastConv)convert()}
+};
+$("#sat").onclick = ()=>window.open("satellite.html","_blank");
+$("#fmt").textContent = use24 ? "Use 12-hour time" : "Use 24-hour time";
+$("#fmt").onclick = ()=>{
+  use24 = !use24;
+  store("tzp_24",use24?"1":"0");
+  $("#fmt").textContent = use24 ? "Use 12-hour time" : "Use 24-hour time";
+  tick();
+  showConv();
+};
+$("#grid").addEventListener("click",e=>{
+  const btn = e.target.closest(".x");
+  if(!btn) return;
+  cities.splice(Number(btn.dataset.i),1);
+  persist();
+  render();
+});
+window.addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>drawMap(true),150)});
+
+render();
+ticker = setInterval(tick,1000);
+fillNow();
+loadGeo();
+importShared();
+TZSearch.load("data/places.json",p=>{$("#info").textContent="Loading the city database… "+Math.round(p*100)+"%"})
+  .then(()=>{const i = TZSearch.info();$("#info").textContent=`${i.places.toLocaleString("en-US")} places in ${i.countries} countries and territories  ·  Data: GeoNames (CC BY 4.0)`})
+  .catch(()=>{$("#info").textContent="The city database could not be loaded. Refresh the page to try again."});
+</script>
+</body>
+</html>

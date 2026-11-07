@@ -1,0 +1,194 @@
+[
+  {
+    "city": "Manama",
+    "country": "Bahrain",
+    "zone": "Asia/Bahrain",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "London",
+    "country": "United Kingdom",
+    "zone": "Europe/London",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "New York",
+    "country": "United States",
+    "zone": "America/New_York",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Tokyo",
+    "country": "Japan",
+    "zone": "Asia/Tokyo",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Edinburgh",
+    "country": "United Kingdom",
+    "zone": "Europe/London",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Colombo",
+    "country": "Sri Lanka",
+    "zone": "Asia/Colombo",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Delhi",
+    "country": "India",
+    "zone": "Asia/Kolkata",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Shanghai",
+    "country": "China",
+    "zone": "Asia/Shanghai",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Toronto",
+    "country": "Canada",
+    "zone": "America/Toronto",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Sydney",
+    "country": "Australia",
+    "zone": "Australia/Sydney",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Nuuk",
+    "country": "",
+    "zone": "America/Nuuk",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Ankara",
+    "country": "Turkey",
+    "zone": "Europe/Istanbul",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Cariboo",
+    "country": "Canada",
+    "zone": "America/Vancouver",
+    "region": "",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Madrid",
+    "country": "Spain",
+    "zone": "Europe/Madrid",
+    "region": "Madrid",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Falmouth",
+    "country": "Antigua and Barbuda",
+    "zone": "America/Antigua",
+    "region": "Saint Paul Parish",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Reykjav\u00edk",
+    "country": "Iceland",
+    "zone": "Atlantic/Reykjavik",
+    "region": "Capital Region",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "K\u00f3pavogur",
+    "country": "Iceland",
+    "zone": "Atlantic/Reykjavik",
+    "region": "Capital Region",
+    "latitude": null,
+    "longitude": null
+  },
+  {
+    "city": "Japan",
+    "country": "Indonesia",
+    "zone": "Asia/Jakarta",
+    "region": "Central Java",
+    "latitude": -6.6726,
+    "longitude": 110.9152
+  },
+  {
+    "city": "Sydney",
+    "country": "Australia",
+    "zone": "Australia/Sydney",
+    "region": "New South Wales",
+    "latitude": -33.86785,
+    "longitude": 151.20732
+  },
+  {
+    "city": "Eagle River",
+    "country": "United States",
+    "zone": "America/Anchorage",
+    "region": "Alaska",
+    "latitude": 61.32139,
+    "longitude": -149.56778
+  },
+  {
+    "city": "Moscow",
+    "country": "Russia",
+    "zone": "Europe/Moscow",
+    "region": "Moscow",
+    "latitude": 55.75204,
+    "longitude": 37.61781
+  },
+  {
+    "city": "Vanha-Nuuksio-Nupuri",
+    "country": "Finland",
+    "zone": "Europe/Helsinki",
+    "region": "Uusimaa",
+    "latitude": 60.24084,
+    "longitude": 24.59855
+  },
+  {
+    "city": "Ukrayinsk",
+    "country": "Ukraine",
+    "zone": "Europe/Kyiv",
+    "region": "Donetsk",
+    "latitude": 48.09777,
+    "longitude": 37.36526
+  },
+  {
+    "city": "Amman",
+    "country": "Jordan",
+    "zone": "Asia/Amman",
+    "region": "Amman",
+    "latitude": 31.95522,
+    "longitude": 35.94503
+  }
+]
